@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:app_form/common/common.dart';
-import 'package:app_form/screens/scan_qr/widget/view_success.dart';
-import 'package:app_form/screens/screens.dart';
-import 'package:app_form/theme/theme.dart';
+import 'package:app_visitor/common/common.dart';
+import 'package:app_visitor/screens/scan_qr/widget/view_success.dart';
+import 'package:app_visitor/screens/screens.dart';
+import 'package:app_visitor/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';

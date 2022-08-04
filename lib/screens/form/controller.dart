@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:app_form/biz/biz.dart';
-import 'package:app_form/common/common.dart';
-import 'package:app_form/models/models.dart';
-import 'package:app_form/repository/repository.dart';
+import 'package:app_visitor/biz/biz.dart';
+import 'package:app_visitor/common/common.dart';
+import 'package:app_visitor/models/models.dart';
+import 'package:app_visitor/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';

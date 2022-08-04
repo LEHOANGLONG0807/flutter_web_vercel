@@ -1,5 +1,6 @@
-import 'package:app_form/models/models.dart';
-import 'package:app_form/repository/repository.dart';
+import 'package:app_visitor/models/models.dart';
+import 'package:app_visitor/repository/repository.dart';
+import 'package:app_visitor/models/customer_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';

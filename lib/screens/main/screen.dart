@@ -1,9 +1,9 @@
 
-import 'package:app_form/models/models.dart';
-import 'package:app_form/theme/theme.dart';
+import 'package:app_visitor/models/models.dart';
+import 'package:app_visitor/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:app_form/common/common.dart';
+import 'package:app_visitor/common/common.dart';
 import 'controller.dart';
 
 class MainScreen extends GetResponsiveView<MainController> {

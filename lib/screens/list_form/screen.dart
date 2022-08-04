@@ -1,11 +1,11 @@
 import 'dart:math';
 
-import 'package:app_form/models/models.dart';
+import 'package:app_visitor/models/models.dart';
 import 'controller.dart';
-import 'package:app_form/theme/theme.dart';
+import 'package:app_visitor/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:app_form/common/common.dart';
+import 'package:app_visitor/common/common.dart';
 
 class ListScreen extends GetView<ListController> {
   ListScreen({Key? key}) : super(key: key);

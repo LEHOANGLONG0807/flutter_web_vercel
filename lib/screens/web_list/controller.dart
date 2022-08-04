@@ -2,8 +2,8 @@
 
 import 'dart:async';
 
-import 'package:app_form/common/common.dart';
-import 'package:app_form/models/models.dart';
+import 'package:app_visitor/common/common.dart';
+import 'package:app_visitor/models/models.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';

@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:app_form/common/common.dart';
-import 'package:app_form/models/customer_model.dart';
-import 'package:app_form/models/models.dart';
+import 'package:app_visitor/common/common.dart';
+import 'package:app_visitor/models/customer_model.dart';
+import 'package:app_visitor/models/models.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';

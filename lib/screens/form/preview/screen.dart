@@ -1,11 +1,11 @@
 
-import 'package:app_form/models/models.dart';
-import 'package:app_form/theme/asset_colors.dart';
+import 'package:app_visitor/models/models.dart';
+import 'package:app_visitor/theme/asset_colors.dart';
 
 import 'controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:app_form/common/common.dart';
+import 'package:app_visitor/common/common.dart';
 
 class PreviewCheckInScreen extends GetView<PreviewCheckInController> {
   PreviewCheckInScreen({Key? key}) : super(key: key);

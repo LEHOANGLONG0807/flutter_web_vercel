@@ -1,6 +1,6 @@
 {
-    "name": "app_form",
-    "short_name": "app_form",
+    "name": "app_visitor",
+    "short_name": "app_visitor",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

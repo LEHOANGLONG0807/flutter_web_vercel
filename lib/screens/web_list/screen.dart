@@ -1,9 +1,9 @@
-import 'package:app_form/models/models.dart';
-import 'package:app_form/screens/web_list/controller.dart';
-import 'package:app_form/theme/theme.dart';
+import 'package:app_visitor/models/models.dart';
+import 'package:app_visitor/screens/web_list/controller.dart';
+import 'package:app_visitor/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:app_form/common/common.dart';
+import 'package:app_visitor/common/common.dart';
 
 class WebManagerScreen extends GetView<WebManagerController> {
   WebManagerScreen({Key? key}) : super(key: key);
