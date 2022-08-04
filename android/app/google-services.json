@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "861218934239",
+    "firebase_url": "https://app-talk-3caf8.firebaseio.com",
+    "project_id": "app-talk-3caf8",
+    "storage_bucket": "app-talk-3caf8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861218934239:android:0265f023ad6e6825d7486a",
+        "android_client_info": {
+          "package_name": "com.hugoteam.visitorform"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861218934239-34iqqvefhrhve4r8a3ugmki15l34vlnl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4ZMVQ0qRI_lb4q_48mryJgTYvmRdHvJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861218934239-34iqqvefhrhve4r8a3ugmki15l34vlnl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "861218934239-hnn06t6e9ecqbrc71a42s7tghpsb1rke.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hugoteam.visitorform"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861218934239:android:afc7715532b0a3bed7486a",
+        "android_client_info": {
+          "package_name": "com.hugoteam.visitors"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861218934239-34iqqvefhrhve4r8a3ugmki15l34vlnl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4ZMVQ0qRI_lb4q_48mryJgTYvmRdHvJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861218934239-34iqqvefhrhve4r8a3ugmki15l34vlnl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "861218934239-hnn06t6e9ecqbrc71a42s7tghpsb1rke.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hugoteam.visitorform"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

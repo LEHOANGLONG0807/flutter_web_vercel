@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android.iml" filepath="$PROJECT_DIR$/.idea/modules/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/android.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/android.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/android.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/android.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/android.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/android.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/android.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2135006286/android.cloud_firestore.iml" filepath="$PROJECT_DIR$/.idea/modules/-2135006286/android.cloud_firestore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2135006286/android.cloud_firestore.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-2135006286/android.cloud_firestore.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2135006286/android.cloud_firestore.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-2135006286/android.cloud_firestore.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2135006286/android.cloud_firestore.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-2135006286/android.cloud_firestore.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1333489884/android.firebase_core.iml" filepath="$PROJECT_DIR$/.idea/modules/-1333489884/android.firebase_core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1333489884/android.firebase_core.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-1333489884/android.firebase_core.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1333489884/android.firebase_core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1333489884/android.firebase_core.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1333489884/android.firebase_core.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-1333489884/android.firebase_core.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1830232237/android.firebase_storage.iml" filepath="$PROJECT_DIR$/.idea/modules/1830232237/android.firebase_storage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1830232237/android.firebase_storage.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/1830232237/android.firebase_storage.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1830232237/android.firebase_storage.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1830232237/android.firebase_storage.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1830232237/android.firebase_storage.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/1830232237/android.firebase_storage.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-301858008/android.flutter_plugin_android_lifecycle.iml" filepath="$PROJECT_DIR$/.idea/modules/-301858008/android.flutter_plugin_android_lifecycle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-301858008/android.flutter_plugin_android_lifecycle.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-301858008/android.flutter_plugin_android_lifecycle.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-301858008/android.flutter_plugin_android_lifecycle.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-301858008/android.flutter_plugin_android_lifecycle.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-301858008/android.flutter_plugin_android_lifecycle.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-301858008/android.flutter_plugin_android_lifecycle.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1463979755/android.fluttertoast.iml" filepath="$PROJECT_DIR$/.idea/modules/1463979755/android.fluttertoast.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1463979755/android.fluttertoast.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/1463979755/android.fluttertoast.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1463979755/android.fluttertoast.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1463979755/android.fluttertoast.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1463979755/android.fluttertoast.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/1463979755/android.fluttertoast.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2006484004/android.image_picker_android.iml" filepath="$PROJECT_DIR$/.idea/modules/2006484004/android.image_picker_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2006484004/android.image_picker_android.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/2006484004/android.image_picker_android.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2006484004/android.image_picker_android.main.iml" filepath="$PROJECT_DIR$/.idea/modules/2006484004/android.image_picker_android.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2006484004/android.image_picker_android.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/2006484004/android.image_picker_android.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2096149929/android.path_provider_android.iml" filepath="$PROJECT_DIR$/.idea/modules/-2096149929/android.path_provider_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2096149929/android.path_provider_android.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-2096149929/android.path_provider_android.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2096149929/android.path_provider_android.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-2096149929/android.path_provider_android.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2096149929/android.path_provider_android.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-2096149929/android.path_provider_android.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2047897293/android.printing.iml" filepath="$PROJECT_DIR$/.idea/modules/-2047897293/android.printing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2047897293/android.printing.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-2047897293/android.printing.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2047897293/android.printing.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-2047897293/android.printing.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2047897293/android.printing.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-2047897293/android.printing.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1797494608/android.qr_code_scanner.iml" filepath="$PROJECT_DIR$/.idea/modules/1797494608/android.qr_code_scanner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1797494608/android.qr_code_scanner.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/1797494608/android.qr_code_scanner.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1797494608/android.qr_code_scanner.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1797494608/android.qr_code_scanner.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1797494608/android.qr_code_scanner.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/1797494608/android.qr_code_scanner.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-799745453/android.scan.iml" filepath="$PROJECT_DIR$/.idea/modules/-799745453/android.scan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-799745453/android.scan.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-799745453/android.scan.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-799745453/android.scan.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-799745453/android.scan.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-799745453/android.scan.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-799745453/android.scan.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/999352991/android.sqflite.iml" filepath="$PROJECT_DIR$/.idea/modules/999352991/android.sqflite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/999352991/android.sqflite.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/999352991/android.sqflite.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/999352991/android.sqflite.main.iml" filepath="$PROJECT_DIR$/.idea/modules/999352991/android.sqflite.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/999352991/android.sqflite.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/999352991/android.sqflite.unitTest.iml" />
+    </modules>
+  </component>
+</project>
