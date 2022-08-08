@@ -19,6 +19,8 @@ class ScanQRController extends GetxController {
 
   bool checkoutSuccess = false;
 
+  bool _isFirst=false;
+
   void _checkout(String id) async {
     EasyLoading.show();
     final res = await _firebaseRepo.updateTimeOut(id: int.parse(id));
@@ -32,10 +34,13 @@ class ScanQRController extends GetxController {
   }
 
   void confirmCheckout(String id) async {
+    if(_isFirst) return;
+    _isFirst=true;
     Get.bottomSheet(BottomSheetConfirmCheckout(
       onTapSure: () => _checkout(id),
       onTapCancel: () {
         qrController!.resumeCamera();
+        _isFirst=false;
       },
     ));
   }

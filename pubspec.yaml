@@ -39,8 +39,6 @@ dependencies:
   fluttertoast: ^8.0.9
   flutter_form_builder: 7.1.0
   form_builder_validators: ^8.1.1
-  firebase_core: ^1.17.1
-  cloud_firestore: ^3.1.17
   printing: ^5.9.1
   pdf: ^3.8.1
   scan: ^1.6.0
@@ -48,7 +46,6 @@ dependencies:
   qr_code_scanner: ^1.0.0
   image_picker: ^0.8.5+3
   slugify: ^2.0.0
-  firebase_storage: 10.2.15
   dotted_border: ^2.0.0+2
   path_provider: ^2.0.11
   url_launcher: ^6.1.5

@@ -68,7 +68,7 @@ class FirebaseRepository implements IFirebaseRepository {
   Future<List<CustomerModel>> fetchListCustomer({required DateTime date}) async {
     try {
       final res = await _appService.get(
-          '/customers?date=${date.date.formatDateTime('MM/dd/yyyy')}-${date.date.add(24.hours).formatDateTime('MM/dd/yyyy')}&pageSize=100');
+          '/customers?date=${date.date.formatDateTime('MM/dd/yyyy')} - ${date.date.add(24.hours).formatDateTime('MM/dd/yyyy')}&pageSize=100');
       if (res.isSuccess) {
         return (res.data['data'] as List).map((e) => CustomerModel.fromJson(e)).toList();
       }
