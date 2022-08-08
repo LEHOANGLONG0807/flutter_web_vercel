@@ -1,7 +1,7 @@
 import 'package:app_visitor/models/models.dart';
 import 'package:app_visitor/repository/repository.dart';
 import 'package:app_visitor/models/customer_model.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:slugify/slugify.dart';
@@ -18,15 +18,17 @@ class ListController extends GetxController {
 
   final totalVisitors = 0.obs;
 
+  final date = DateTime.now().obs;
+
   @override
   void onInit() {
     super.onInit();
     _fetchCustomer();
   }
 
-  void _fetchCustomer() async {
+  Future _fetchCustomer() async {
     EasyLoading.show();
-    final res = await _firebaseRepo.fetchListCustomer(date: DateTime.now());
+    final res = await _firebaseRepo.fetchListCustomer(date: date.value);
     _listCustomer.clear();
     res.sort((a, b) => b.timeIn.microsecondsSinceEpoch.compareTo(a.timeIn.microsecondsSinceEpoch));
     _listCustomer.addAll(res);
@@ -38,6 +40,23 @@ class ListController extends GetxController {
   void clearSearch() {
     keySearchController.clear();
     listCustomerObs.value = _listCustomer;
+  }
+
+  void onTapChangeDate() async {
+    final result = await Get.dialog(
+      DatePickerDialog(
+        initialDate: date.value,
+        firstDate: DateTime(2020),
+        lastDate: DateTime.now(),
+      ),
+    );
+    if (result != null && result is DateTime) {
+      date.value = result;
+      await _fetchCustomer();
+      if (keySearchController.text.isNotEmpty) {
+        onSearch(keySearchController.text);
+      }
+    }
   }
 
   void onSearch(String key) {

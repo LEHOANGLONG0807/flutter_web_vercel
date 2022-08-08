@@ -20,7 +20,7 @@ class WebManagerScreen extends GetView<WebManagerController> {
           Container(
             width: double.infinity,
             height: double.infinity,
-            padding: const EdgeInsets.only(left: 100, right: 100, top: 30, bottom: 10),
+            padding: const EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 10),
             margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
@@ -30,9 +30,19 @@ class WebManagerScreen extends GetView<WebManagerController> {
               children: [
                 Image.asset(
                   'img_logo_company'.assetImagesPathPNG,
-                  width: 150,
+                  width: 120,
                 ),
-                50.verticalSpace,
+                15.verticalSpace,
+                Obx(() {
+                  return InkWell(
+                    onTap: controller.onTapChangeDate,
+                    child: Text(
+                      controller.date.value.formatDateddMMyyyy,
+                      style: _textTheme.headline3!.textPrimary.letterSpaC(0.6),
+                    ),
+                  );
+                },),
+                25.verticalSpace,
                 _buildHeader(),
                 const Divider(),
                 _buildData(),

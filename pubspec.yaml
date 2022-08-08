@@ -30,7 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  get: 4.5.0
+  get: ^4.6.5
   flutter_easyloading: ^3.0.5
   intl: ^0.17.0
   get_storage: ^2.0.3
@@ -45,7 +45,7 @@ dependencies:
   pdf: ^3.8.1
   scan: ^1.6.0
   google_fonts: ^3.0.1
-  qr_code_scanner: ^0.7.0
+  qr_code_scanner: ^1.0.0
   image_picker: ^0.8.5+3
   slugify: ^2.0.0
   firebase_storage: 10.2.15

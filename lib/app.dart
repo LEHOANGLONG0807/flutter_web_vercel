@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     final initialBinding = BindingsBuilder(() {
       Get.put(AppService());
-      Get.put(FirebaseService());
+      // Get.put(FirebaseService());
       Get.lazyPut<IFirebaseRepository>(() => FirebaseRepository(), fenix: true);
       Get.put(AppController());
     });

@@ -1,6 +1,4 @@
-import 'dart:io';
 
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
@@ -148,11 +146,10 @@ abstract class BaseService {
     final headers = <String, dynamic>{
       'content-type': 'application/json',
       'accept': 'application/json',
-      'Authorization': 'Bearer $_token',
     };
     _dio = Dio(
       BaseOptions(
-        baseUrl: '',
+        baseUrl: 'https://visitor.hthcomm.com/api',
         connectTimeout: 15000,
         receiveTimeout: 15000,
         responseType: ResponseType.json,
@@ -169,7 +166,7 @@ abstract class BaseService {
 
   bool isSuccess(dio.Response response) {
     return response.statusCode == 200 &&
-        (response.data['code'] == 200 || response.data['code'] == 201);
+        (response.data['success'] == true || response.data['message'] == 'success');
   }
 
   String getMegError(dio.Response response) {
@@ -188,7 +185,6 @@ abstract class BaseService {
     EasyLoading.dismiss();
     debugPrint('---ERROR---\n${e.toString()}');
     if (e.response?.statusCode == 401) {
-      // Get.find<AppController>().logout();
     } else {
       try {
         FlutterToast.showToastError(message: e.response!.data['error']);

@@ -1,5 +1,4 @@
 import 'package:app_visitor/common/common.dart';
-import 'package:intl/intl.dart';
 
 class CustomerModel {
   final DateTime dateIn;
@@ -8,12 +7,12 @@ class CustomerModel {
   final String company;
   final String purpose;
   final String initialsName;
-  final String urlAvatar;
+  String? urlAvatar;
   final DateTime timeIn;
   final String customerId;
   DateTime? timeOut;
   String urlPdf;
-  String id;
+  int id;
 
   CustomerModel({
     required this.dateIn,
@@ -23,24 +22,24 @@ class CustomerModel {
     required this.purpose,
     required this.initialsName,
     required this.timeIn,
-    required this.urlAvatar,
+    this.urlAvatar,
     required this.customerId,
     this.timeOut,
-    this.id = '',
+    this.id = -1,
     this.urlPdf = '',
   });
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) => CustomerModel(
-        firstName: json["first_name"],
-        lastName: json["last_name"],
-        company: json["company"],
-        purpose: json["purpose"],
-        customerId: json["customer_id"],
-        urlAvatar: json["url_avatar"] ?? '',
-        initialsName: json["initials_name"],
-        urlPdf: json["url_pdf"]??'',
-        dateIn: DateFormat(DateTimeExt.dateFormatddMMyyyy).parse(json["date_in"]),
-        timeIn: DateTime.parse(json["time_in"]),
+        firstName: json["first_name"]??'',
+        lastName: json["last_name"]??'',
+        company: json["company"]??'',
+        purpose: json["purpose"]??'',
+        customerId: json["customer_id"]??'HTH-',
+        urlAvatar: json["avatar"] ?? '',
+        initialsName: json["initials_name"]??'-',
+        urlPdf: json["url_file_printing"] ?? '',
+        dateIn: json["time_in"] == null ? DateTime.now() : DateTime.parse(json["time_in"]),
+        timeIn:json["time_in"] == null ? DateTime.now(): DateTime.parse(json["time_in"]),
         timeOut: json["time_out"] == null ? null : DateTime.parse(json["time_out"]),
       );
 

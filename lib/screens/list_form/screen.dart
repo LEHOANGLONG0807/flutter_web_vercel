@@ -23,11 +23,16 @@ class ListScreen extends GetView<ListController> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: Colors.white,size: 40),
-        title: Text(
-          DateTime.now().formatDateddMMyyyy,
-          style: _textTheme.headline6!.textWhite,
-        ),
+        iconTheme: const IconThemeData(color: Colors.white, size: 40),
+        title: Obx(() {
+          return InkWell(
+            onTap: controller.onTapChangeDate,
+            child: Text(
+              controller.date.value.formatDateddMMyyyy,
+              style: _textTheme.headline6!.textWhite,
+            ),
+          );
+        }),
       ),
       body: Container(
         width: double.infinity,

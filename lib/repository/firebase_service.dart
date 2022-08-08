@@ -1,66 +1,62 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:app_visitor/common/common.dart';
 import 'package:app_visitor/models/customer_model.dart';
 import 'package:app_visitor/models/models.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http_parser/http_parser.dart';
+import 'app_service.dart';
 
-class FirebaseService {
-  FirebaseService() {
-    final _firebaseFirestore = FirebaseFirestore.instance;
-
-    storage = FirebaseStorage.instance;
-
-    customerCollection = _firebaseFirestore.collection('customers');
-  }
-  late CollectionReference customerCollection;
-
-  late FirebaseStorage storage;
-}
+// class FirebaseService {
+//   FirebaseService() {
+//     final _firebaseFirestore = FirebaseFirestore.instance;
+//
+//     storage = FirebaseStorage.instance;
+//
+//     customerCollection = _firebaseFirestore.collection('customers');
+//   }
+//   late CollectionReference customerCollection;
+//
+//   late FirebaseStorage storage;
+// }
 
 abstract class IFirebaseRepository {
-  Future<String?> createCustomer({required Map<String, dynamic> data});
+  Future<int?> createCustomer({required Map<String, dynamic> data});
 
-  Future<bool> updateTimeOut({required String id});
+  Future<bool> updateTimeOut({required int id});
 
-  Future<bool> updateURLPDF({required String id, required String urlPdf});
+  Future<bool> uploadAvatar({required int id, required File file});
 
-  Future<bool> checkHaveId({required String id});
-
-  Future<String?> uploadImage({required File file});
-
-  Future<String?> uploadFilePdf({required File file});
+  Future<bool> uploadFilePdf({required int id, required Uint8List file});
 
   Future<List<CustomerModel>> fetchListCustomer({required DateTime date});
-
-  Future<List<CustomerModel>> fetchListCustomerManager();
 }
 
 class FirebaseRepository implements IFirebaseRepository {
-  FirebaseService get _firebaseService => Get.find();
+  AppService get _appService => Get.find();
 
   @override
-  Future<String?> createCustomer({required Map<String, dynamic> data}) async {
+  Future<int?> createCustomer({required Map<String, dynamic> data}) async {
     try {
-      final res = await _firebaseService.customerCollection.add(data);
-      return res.id;
+      final res = await _appService.post('/customers', data: data);
+      if (res.isSuccess) {
+        return res.data['id'];
+      }
     } catch (e) {
       debugPrint(e.toString());
       FlutterToast.showToastError(message: 'Error!');
-      return null;
     }
+    return null;
   }
 
   @override
-  Future<bool> updateTimeOut({required String id}) async {
+  Future<bool> updateTimeOut({required int id}) async {
     try {
-      await _firebaseService.customerCollection
-          .doc(id)
-          .update({'time_out': DateTime.now().toIso8601String()});
-      return true;
+      final res = await _appService.put('/customers/checkout/$id');
+      return res.isSuccess;
     } catch (e) {
       debugPrint(e.toString());
       FlutterToast.showToastError(message: 'ID not found!');
@@ -71,15 +67,11 @@ class FirebaseRepository implements IFirebaseRepository {
   @override
   Future<List<CustomerModel>> fetchListCustomer({required DateTime date}) async {
     try {
-      final res = await _firebaseService.customerCollection
-          .where('date_in', isEqualTo: date.formatDateddMMyyyy)
-          .get();
-      final list = res.docs.toList();
-      return list.map((e) {
-        final newModel = CustomerModel.fromJson(e.data() as Map<String, dynamic>);
-        newModel.id = e.id;
-        return newModel;
-      }).toList();
+      final res = await _appService.get(
+          '/customers?date=${date.date.formatDateTime('MM/dd/yyyy')}-${date.date.add(24.hours).formatDateTime('MM/dd/yyyy')}&pageSize=100');
+      if (res.isSuccess) {
+        return (res.data['data'] as List).map((e) => CustomerModel.fromJson(e)).toList();
+      }
     } catch (e) {
       debugPrint(e.toString());
       FlutterToast.showToastError(message: 'Error!');
@@ -89,71 +81,37 @@ class FirebaseRepository implements IFirebaseRepository {
   }
 
   @override
-  Future<bool> checkHaveId({required String id}) async {
+  Future<bool> uploadAvatar({required int id, required File file}) async {
     try {
-      final res = await _firebaseService.customerCollection.doc(id).get();
-      return res.data() != null;
+      final List<int> imageData = file.readAsBytesSync();
+      final multipartFile = dio.MultipartFile.fromBytes(
+        imageData,
+        filename: file.path,
+        contentType: MediaType('image', 'jpg'),
+      );
+      final res = await _appService.post('/customers/uploadAvatar/$id',
+          data: dio.FormData.fromMap({'avatar': multipartFile}));
+      return res.isSuccess;
     } catch (e) {
       debugPrint(e.toString());
-      return false;
     }
+    return false;
   }
 
   @override
-  Future<String?> uploadImage({required File file}) async {
+  Future<bool> uploadFilePdf({required int id, required Uint8List file}) async {
     try {
-      final ref = _firebaseService.storage.ref().child('images/${file.path.split('/').last}');
-      final res = await ref.putFile(file);
-      final url = await res.ref.getDownloadURL();
-      return url;
+      final multipartFile = dio.MultipartFile.fromBytes(
+        file,
+        filename: 'file_pdf_$id.pdf',
+        contentType: MediaType('application', 'pdf'),
+      );
+      final res = await _appService.post('/customers/uploadPDF/$id',
+          data: dio.FormData.fromMap({'file_printing': multipartFile}));
+      return res.isSuccess;
     } catch (e) {
       debugPrint(e.toString());
     }
-    return null;
-  }
-
-  @override
-  Future<String?> uploadFilePdf({required File file}) async {
-    try {
-      final ref = _firebaseService.storage.ref('files').child(file.path.split('/').last);
-      final res = await ref.putFile(file);
-      final url = await res.ref.getDownloadURL();
-      return url;
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-    return null;
-  }
-
-  @override
-  Future<List<CustomerModel>> fetchListCustomerManager() async {
-    try {
-      final res = await _firebaseService.customerCollection
-          .where('date_in', isEqualTo: DateTime.now().formatDateddMMyyyy)
-          .limit(20)
-          .get();
-      final list = res.docs.toList();
-      return list.map((e) {
-        final newModel = CustomerModel.fromJson(e.data() as Map<String, dynamic>);
-        newModel.id = e.id;
-        return newModel;
-      }).toList();
-    } catch (e) {
-      debugPrint(e.toString());
-      FlutterToast.showToastError(message: 'Error!');
-    }
-
-    return [];
-  }
-
-  @override
-  Future<bool> updateURLPDF({required String id, required String urlPdf}) async {
-    try {
-      await _firebaseService.customerCollection.doc(id).update({'url_pdf': urlPdf});
-      return true;
-    } catch (e) {
-      debugPrint(e.toString());
-      return false;
-    }
+    return false;
   }
 }

@@ -10,9 +10,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
-import 'package:printing/printing.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'widget/widget.dart';
@@ -40,7 +38,7 @@ class FormController extends GetxController {
 
   final initial = ''.obs;
 
-  String customerId = '';
+  int id = -1;
 
   String get idCreateCustomer =>
       'HTH-${DateTime.now().formatDateTime('MMddyy')}-${_appCtrl.countCustomer}';
@@ -73,16 +71,9 @@ class FormController extends GetxController {
   void _onTapSave() async {
     try {
       EasyLoading.show();
-      final url = await _firebaseRepo.uploadImage(file: fileImage.value);
-      if (url == null) {
-        FlutterToast.showToastError(message: 'Upload Check-in photo error');
-        EasyLoading.dismiss();
-        return;
-      }
       final newModel = CustomerModel(
         dateIn: DateTime.now(),
         timeIn: DateTime.now(),
-        urlAvatar: url,
         firstName: firstNameController.text.trim(),
         lastName: lastNameController.text.trim(),
         company: companyController.text.trim(),
@@ -90,11 +81,20 @@ class FormController extends GetxController {
         initialsName: initialsNameController.text.trim(),
         customerId: _genCustomerId,
       );
-      final res = await _firebaseRepo.createCustomer(data: newModel.toJson());
-      EasyLoading.dismiss();
+      final data = newModel.toJson();
+      data.removeWhere((key, value) => value == null);
+      final res = await _firebaseRepo.createCustomer(data: data);
+
       if (res != null) {
         _appCtrl.addCountCustomer();
-        customerId = res;
+        final success = await _firebaseRepo.uploadAvatar(id: res, file: fileImage.value);
+        EasyLoading.dismiss();
+        if (success != true) {
+          FlutterToast.showToastError(message: 'Upload Check-in photo error');
+          EasyLoading.dismiss();
+          return;
+        }
+        id = res;
         newModel.id = res;
         _customerModel = newModel;
         _genFilePDFPrint(model: _customerModel);
@@ -138,15 +138,7 @@ class FormController extends GetxController {
     try {
       final uInt8ListPDF = await _generatePdf(PdfPageFormat.legal,
           byteQrCode: bytes, customer: model, logoCompany: logoCompany);
-      final tempDir = await getTemporaryDirectory();
-      final nameFile =
-          '${model.firstName.toLowerCase()}_${model.customerId.replaceAll('-', '_').toLowerCase()}.pdf';
-      final file = await File('${tempDir.path}/$nameFile').create();
-      file.writeAsBytesSync(uInt8ListPDF);
-      _firebaseRepo.uploadFilePdf(file: file).then((value) {
-        _firebaseRepo.updateURLPDF(id: model.id, urlPdf: value ?? '');
-        file.deleteSync();
-      });
+      _firebaseRepo.uploadFilePdf(id: model.id, file: uInt8ListPDF);
     } catch (e) {
       debugPrint(e.toString());
     }

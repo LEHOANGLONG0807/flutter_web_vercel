@@ -1,4 +1,3 @@
-import 'package:app_visitor/common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -22,7 +21,7 @@ class ScanQRController extends GetxController {
 
   void _checkout(String id) async {
     EasyLoading.show();
-    final res = await _firebaseRepo.updateTimeOut(id: id);
+    final res = await _firebaseRepo.updateTimeOut(id: int.parse(id));
     EasyLoading.dismiss();
     if (res) {
       checkoutSuccess = true;
@@ -33,21 +32,12 @@ class ScanQRController extends GetxController {
   }
 
   void confirmCheckout(String id) async {
-    qrController!.pauseCamera();
-    EasyLoading.show();
-    final res = await _firebaseRepo.checkHaveId(id: id);
-    EasyLoading.dismiss();
-    if (res) {
-      Get.bottomSheet(BottomSheetConfirmCheckout(
-        onTapSure: () => _checkout(id),
-        onTapCancel: () {
-          qrController!.resumeCamera();
-        },
-      ));
-    } else {
-      qrController!.resumeCamera();
-      FlutterToast.showToastError(message: 'ID not found!');
-    }
+    Get.bottomSheet(BottomSheetConfirmCheckout(
+      onTapSure: () => _checkout(id),
+      onTapCancel: () {
+        qrController!.resumeCamera();
+      },
+    ));
   }
 
   void addManually() async {

@@ -24,7 +24,7 @@ class FormScreen extends GetResponsiveView<FormController> {
   Widget build(context) {
     return GetBuilder<FormController>(
       builder: (_) {
-        if (controller.customerId.isNotEmpty) {
+        if (controller.id != -1) {
           return ViewSubmitSuccess();
         }
         return Scaffold(
@@ -74,12 +74,12 @@ class FormScreen extends GetResponsiveView<FormController> {
                           Obx(() {
                             return const Text('Submit')
                                 .elevatedButton(
-                                onPressed: controller.isInitialsNameRequires.isTrue
-                                    ? () {
-                                  FocusScope.of(context).unfocus();
-                                  controller.onSubmit();
-                                }
-                                    : null)
+                                    onPressed: controller.isInitialsNameRequires.isTrue
+                                        ? () {
+                                            FocusScope.of(context).unfocus();
+                                            controller.onSubmit();
+                                          }
+                                        : null)
                                 .wrapWidth(200);
                           }),
                         // else
@@ -159,7 +159,7 @@ class FormScreen extends GetResponsiveView<FormController> {
             child: FormBuilderDropdown<String>(
               name: 'purpose_of_visit',
               initialValue:
-              controller.isEnabled == false ? controller.purposeController.text : null,
+                  controller.isEnabled == false ? controller.purposeController.text : null,
               onChanged: (val) => controller.purposeController.text = val ?? '',
               decoration: const InputDecoration(hintText: 'Select Your Purposes'),
               validator: FormBuilderValidators.compose([
@@ -167,14 +167,13 @@ class FormScreen extends GetResponsiveView<FormController> {
               ]),
               items: List<DropdownMenuItem<String>>.from(
                 (!controller.isEnabled
-                ? ['For an interview']
+                        ? ['For an interview']
                         : ['For an interview', 'To explore HTH premises'])
                     .map(
-                      (s) =>
-                      DropdownMenuItem(
-                        value: s,
-                        child: Text(s),
-                      ),
+                  (s) => DropdownMenuItem(
+                    value: s,
+                    child: Text(s),
+                  ),
                 ),
               ),
             ),
@@ -191,8 +190,7 @@ class FormScreen extends GetResponsiveView<FormController> {
                     TextSpan(
                       text: 'Security, Safety & Environmental Notice',
                       style: _textTheme.headline5!.regular.textPrimary,
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = controller.onTapSecurity,
+                      recognizer: TapGestureRecognizer()..onTap = controller.onTapSecurity,
                     ),
                     const TextSpan(
                       text: ' and escort required.',
@@ -208,7 +206,9 @@ class FormScreen extends GetResponsiveView<FormController> {
                 textCapitalization: TextCapitalization.characters,
                 enabled: controller.isEnabled,
                 decoration: InputDecoration(
-                  hintText:controller.initial.isNotEmpty?controller.initial.value: 'Your Initials Name',
+                  hintText: controller.initial.isNotEmpty
+                      ? controller.initial.value
+                      : 'Your Initials Name',
                   contentPadding: const EdgeInsets.all(12),
                   enabledBorder: _underlineBorderTextFiled,
                   focusedBorder: _underlineBorderTextFiled,
@@ -239,7 +239,7 @@ class FormScreen extends GetResponsiveView<FormController> {
 
   Widget _buildCheckInPhoto() {
     return Obx(
-          () {
+      () {
         final file = controller.fileImage.value;
         late Widget _child;
         if (file is String) {

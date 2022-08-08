@@ -49,14 +49,6 @@ class ViewSubmitSuccess extends GetView<FormController> {
                     Image.asset('img_success'.assetImagesPathPNG).paddingSymmetric(horizontal: 30)),
             80.verticalSpace,
             const Text('Done').elevatedButton(onPressed: Get.back).wrapWidth(300),
-            // 30.verticalSpace,
-            // InkWell(
-            //   onTap: Get.back,
-            //   child: Text(
-            //     'Cancel',
-            //     style: _textTheme.headline5!.textGrey797979.regular,
-            //   ),
-            // ),
             150.verticalSpace,
           ],
         ).paddingSymmetric(horizontal: 100),

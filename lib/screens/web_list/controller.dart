@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:app_visitor/common/common.dart';
 import 'package:app_visitor/models/models.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,6 +16,8 @@ class WebManagerController extends GetxController {
   IFirebaseRepository get _firebaseRepo => Get.find();
 
   final customers = <CustomerModel>[];
+
+  final date = DateTime.now().obs;
 
   @override
   void onInit() {
@@ -32,11 +35,30 @@ class WebManagerController extends GetxController {
   }
 
   Future _fetchCustomer() async {
-    customers.clear();
-    final res = await _firebaseRepo.fetchListCustomerManager();
-    res.sort((a, b) => b.timeIn.microsecondsSinceEpoch.compareTo(a.timeIn.microsecondsSinceEpoch));
-    customers.addAll(res);
-    update();
+    try {
+      customers.clear();
+      final res = await _firebaseRepo.fetchListCustomer(date: date.value);
+      res.sort(
+          (a, b) => b.timeIn.microsecondsSinceEpoch.compareTo(a.timeIn.microsecondsSinceEpoch));
+      customers.addAll(res);
+      update();
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  void onTapChangeDate() async {
+    final result = await Get.dialog(
+      DatePickerDialog(
+        initialDate: date.value,
+        firstDate: DateTime(2020),
+        lastDate: DateTime.now(),
+      ),
+    );
+    if (result != null && result is DateTime) {
+      date.value = result;
+      _initLoad();
+    }
   }
 
   void onTapViewFile(CustomerModel model) async {
