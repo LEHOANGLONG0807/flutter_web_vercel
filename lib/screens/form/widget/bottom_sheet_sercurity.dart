@@ -20,40 +20,42 @@ class BottomSheetSecurity extends StatelessWidget {
           topLeft: Radius.circular(40),
         ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Image.asset(
-            'ic_important'.assetImagesPathPNG,
-            width: 100,
-          ),
-          Text(
-            'Important Notice',
-            style: Get.textTheme.headline5!.w8.textPrimary.size(22),
-          ),
-          10.verticalSpace,
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              5.verticalSpace,
-              ..._notices.keys.toList().map(
-                    (e) => _buildItem(title: e, content: _notices[e]!),
-                  ),
-              Text(
-                '''By signing below, you acknowledge you have read the guidelines and instructions above, and afforded an opportunity to copies of environmental, health, and safety rules and guidelines. Failure to follow any rules, guidelines, or instructions may be cause for suspension of access to the processing areas.''',
-                style: _textTheme.headline6!.medium.textGrey797979,
-              ),
-              30.verticalSpace,
-              const Text('I got it')
-                  .elevatedButton(
-                onPressed: Get.back,
-              )
-                  .wrapWidth(200),
-              20.verticalSpace,
-
-            ],
-          ),
-        ],
+      child: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              'ic_important'.assetImagesPathPNG,
+              width: 100,
+            ),
+            Text(
+              'Important Notice',
+              style: Get.textTheme.headline5!.w8.textPrimary.size(22),
+            ),
+            10.verticalSpace,
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                5.verticalSpace,
+                ..._notices.keys.toList().map(
+                      (e) => _buildItem(title: e, content: _notices[e]!),
+                    ),
+                Text(
+                  '''By signing below, you acknowledge you have read the guidelines and instructions above, and afforded an opportunity to copies of environmental, health, and safety rules and guidelines. Failure to follow any rules, guidelines, or instructions may be cause for suspension of access to the processing areas.''',
+                  style: _textTheme.headline6!.medium.textGrey797979,
+                ),
+                30.verticalSpace,
+                const Text('I got it')
+                    .elevatedButton(
+                  onPressed: Get.back,
+                )
+                    .wrapWidth(200),
+                40.verticalSpace,
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
