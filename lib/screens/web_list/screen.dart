@@ -37,7 +37,7 @@ class WebManagerScreen extends GetView<WebManagerController> {
                   return InkWell(
                     onTap: controller.onTapChangeDate,
                     child: Text(
-                      controller.date.value.formatDateddMMyyyy,
+                      controller.date.value.formatDateTime('MM/dd/yyyy'),
                       style: _textTheme.headline3!.textPrimary.letterSpaC(0.6),
                     ),
                   );
