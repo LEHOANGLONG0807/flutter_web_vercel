@@ -20,7 +20,7 @@ class WebManagerScreen extends GetView<WebManagerController> {
           Container(
             width: double.infinity,
             height: double.infinity,
-            padding: const EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 10),
+            padding: const EdgeInsets.only(left: 60, right: 60, top: 20, bottom: 10),
             margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
@@ -68,12 +68,12 @@ class WebManagerScreen extends GetView<WebManagerController> {
 
     return Row(
       children: [
-        Expanded(flex: 4, child: _item('CUSTOMER NAME')),
+        Expanded(flex: 3, child: _item('CUSTOMER NAME')),
         Expanded(flex: 3, child: _item('COMPANY')),
-        Expanded(flex: 3, child: _item('REASON')),
+        Expanded(flex: 2, child: _item('REASON')),
         Expanded(flex: 2, child: _item('CHECK-IN')),
         Expanded(flex: 2, child: _item('CHECK-OUT')),
-        Expanded(flex: 2, child: _item('ACTION')),
+        Expanded(flex: 1, child: _item('ACTION')),
       ],
     );
   }
@@ -126,15 +126,15 @@ class WebManagerScreen extends GetView<WebManagerController> {
 
     return Row(
       children: [
-        Expanded(flex: 4, child: _item(model.displayName)),
+        Expanded(flex: 3, child: _item(model.displayName)),
         Expanded(flex: 3, child: _item(model.company)),
-        Expanded(flex: 3, child: _item(model.purpose)),
+        Expanded(flex: 2, child: _item(model.purpose)),
         Expanded(
             flex: 2, child: _item(model.timeIn.formatDateTime('hh:mm a MM/dd/yyyy').toUpperCase())),
         Expanded(
             flex: 2, child: _item(model.timeOut?.formatDateTime('hh:mm a MM/dd/yyyy').toUpperCase()??'-')),
         Expanded(
-          flex: 2,
+          flex: 1,
           child: InkWell(
             onTap: () => controller.onTapViewFile(model),
             child: Row(
