@@ -10,18 +10,6 @@ import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart';
 import 'app_service.dart';
 
-// class FirebaseService {
-//   FirebaseService() {
-//     final _firebaseFirestore = FirebaseFirestore.instance;
-//
-//     storage = FirebaseStorage.instance;
-//
-//     customerCollection = _firebaseFirestore.collection('customers');
-//   }
-//   late CollectionReference customerCollection;
-//
-//   late FirebaseStorage storage;
-// }
 
 abstract class IFirebaseRepository {
   Future<int?> createCustomer({required Map<String, dynamic> data});
@@ -68,7 +56,7 @@ class FirebaseRepository implements IFirebaseRepository {
   Future<List<CustomerModel>> fetchListCustomer({required DateTime date}) async {
     try {
       final res = await _appService.get(
-          '/customers?date=${date.date.formatDateTime('MM/dd/yyyy')} - ${date.date.add(24.hours).formatDateTime('MM/dd/yyyy')}&pageSize=100');
+          '/customers?date=${date.toUtc().date.formatDateTime('MM/dd/yyyy')} - ${date.toUtc().date.add(1439.minutes).formatDateTime('MM/dd/yyyy')}&pageSize=100');
       if (res.isSuccess) {
         return (res.data['data'] as List).map((e) => CustomerModel.fromJson(e)).toList();
       }

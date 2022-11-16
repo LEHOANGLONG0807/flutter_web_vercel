@@ -70,7 +70,9 @@ class WebManagerScreen extends GetView<WebManagerController> {
       children: [
         Expanded(flex: 4, child: _item('CUSTOMER NAME')),
         Expanded(flex: 3, child: _item('COMPANY')),
-        Expanded(flex: 3, child: _item('CHECK-IN')),
+        Expanded(flex: 3, child: _item('REASON')),
+        Expanded(flex: 2, child: _item('CHECK-IN')),
+        Expanded(flex: 2, child: _item('CHECK-OUT')),
         Expanded(flex: 2, child: _item('ACTION')),
       ],
     );
@@ -126,8 +128,11 @@ class WebManagerScreen extends GetView<WebManagerController> {
       children: [
         Expanded(flex: 4, child: _item(model.displayName)),
         Expanded(flex: 3, child: _item(model.company)),
+        Expanded(flex: 3, child: _item(model.purpose)),
         Expanded(
-            flex: 3, child: _item(model.timeIn.formatDateTime('hh:mm a MM/dd/yyyy').toUpperCase())),
+            flex: 2, child: _item(model.timeIn.formatDateTime('hh:mm a MM/dd/yyyy').toUpperCase())),
+        Expanded(
+            flex: 2, child: _item(model.timeOut?.formatDateTime('hh:mm a MM/dd/yyyy').toUpperCase()??'-')),
         Expanded(
           flex: 2,
           child: InkWell(
