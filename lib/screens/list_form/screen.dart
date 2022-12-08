@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:app_visitor/models/models.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'controller.dart';
 import 'package:app_visitor/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class ListScreen extends GetView<ListController> {
           return InkWell(
             onTap: controller.onTapChangeDate,
             child: Text(
-              controller.date.value.formatDateddMMyyyy,
+              controller.date.value.formatDateTime('MM/dd/yyyy'),
               style: _textTheme.headline6!.textWhite,
             ),
           );
@@ -189,6 +190,16 @@ class ListScreen extends GetView<ListController> {
                 child: Text(
                   model.displayName,
                   style: _textTheme.headline6!.bold,
+                ),
+              ),
+              5.horizontalSpace,
+              InkWell(
+                onTap: () {
+                  launchUrl(Uri.parse(model.urlPdf));
+                },
+                child: const Icon(
+                  Icons.sticky_note_2_outlined,
+                  color: AppColors.primary,
                 ),
               ),
             ],

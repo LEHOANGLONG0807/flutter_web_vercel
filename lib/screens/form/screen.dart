@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
+import '../../models/models.dart';
 import 'controller.dart';
 import 'package:app_visitor/common/common.dart';
 
@@ -124,7 +125,7 @@ class FormScreen extends GetResponsiveView<FormController> {
           _buildTitleAndWidget(
             title: 'Last Name',
             child: FormBuilderTextField(
-              name: 'Type your name',
+              name: 'Type your late name',
               enabled: controller.isEnabled,
               onChanged: (_) {
                 controller.initials();
@@ -140,6 +141,7 @@ class FormScreen extends GetResponsiveView<FormController> {
           30.verticalSpace,
           _buildTitleAndWidget(
             title: 'Your Company',
+            isRequired: false,
             child: FormBuilderTextField(
               name: 'company',
               minLines: 1,
@@ -148,34 +150,84 @@ class FormScreen extends GetResponsiveView<FormController> {
               maxLines: 10,
               controller: controller.companyController,
               decoration: const InputDecoration(hintText: 'Tell us which company you work for'),
-              validator: FormBuilderValidators.compose([
-                FormBuilderValidators.required(errorText: 'Your Company is require'),
-              ]),
+              // validator: FormBuilderValidators.compose([
+              //   FormBuilderValidators.required(errorText: 'Your Company is require'),
+              // ]),
             ),
           ),
           30.verticalSpace,
           _buildTitleAndWidget(
             title: 'Purpose of Your Visit',
-            child: FormBuilderDropdown<String>(
+            child: FormBuilderDropdown<PurposeEnum>(
               name: 'purpose_of_visit',
-              initialValue:
-                  controller.isEnabled == false ? controller.purposeController.text : null,
-              onChanged: (val) => controller.purposeController.text = val ?? '',
+              initialValue: controller.isEnabled == false ? controller.purposeSelected.value : null,
+              onChanged: (val) {
+                controller.purposeSelected.value = val;
+                if (controller.purposeSelected.value != PurposeEnum.forAnInterview){
+                  controller.emailController.clear();
+                }
+              },
               decoration: const InputDecoration(hintText: 'Select Your Purposes'),
               validator: FormBuilderValidators.compose([
                 FormBuilderValidators.required(errorText: 'Purpose of Your Visit is require'),
               ]),
-              items: List<DropdownMenuItem<String>>.from(
-                (!controller.isEnabled
-                        ? ['For an interview']
-                        : ['For an interview', 'To explore HTH premises'])
+              items: List<DropdownMenuItem<PurposeEnum>>.from(
+                (!controller.isEnabled ? [controller.purposeSelected.value] : PurposeEnum.values)
                     .map(
                   (s) => DropdownMenuItem(
                     value: s,
-                    child: Text(s),
+                    child: Text(s?.title ?? ''),
                   ),
                 ),
               ),
+            ),
+          ),
+          Obx(() {
+            if (controller.purposeSelected.value != PurposeEnum.forAnInterview) {
+              return const SizedBox();
+            }
+            return _buildTitleAndWidget(
+              title: 'Email address',
+              child: FormBuilderTextField(
+                name: 'Email address',
+                enabled: controller.isEnabled,
+                textCapitalization: TextCapitalization.words,
+                controller: controller.emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(hintText: 'Email address'),
+                validator: FormBuilderValidators.compose([
+                  FormBuilderValidators.required(errorText: 'Email address is require!'),
+                  FormBuilderValidators.email(errorText: 'Email address invalid'),
+                ]),
+              ),
+            ).paddingOnly(top: 30);
+          }),
+          30.verticalSpace,
+          _buildTitleAndWidget(
+            title: 'People to meet with',
+            isRequired: false,
+            child: FormBuilderTextField(
+              name: 'People to meet with',
+              enabled: controller.isEnabled,
+              textCapitalization: TextCapitalization.words,
+              controller: controller.peopleController,
+              decoration: const InputDecoration(hintText: 'People to meet with'),
+            ),
+          ),
+          30.verticalSpace,
+          _buildTitleAndWidget(
+            title: 'Phone number',
+            isRequired: false,
+            child: FormBuilderTextField(
+              name: 'Phone number',
+              enabled: controller.isEnabled,
+              textCapitalization: TextCapitalization.words,
+              controller: controller.phoneController,
+              keyboardType: TextInputType.phone,
+              decoration: const InputDecoration(hintText: 'Phone number'),
+              validator: FormBuilderValidators.compose([
+                FormBuilderValidators.numeric(errorText: 'Phone number invalid'),
+              ]),
             ),
           ),
           30.verticalSpace,
@@ -304,6 +356,7 @@ class FormScreen extends GetResponsiveView<FormController> {
         }
         return _buildTitleAndWidget(
           title: 'Check-in photo',
+          isRequired: false,
           child: DottedBorder(
             borderType: BorderType.RRect,
             radius: const Radius.circular(12),
@@ -353,7 +406,8 @@ class FormScreen extends GetResponsiveView<FormController> {
     );
   }
 
-  Widget _buildTitleAndWidget({required String title, required Widget child}) {
+  Widget _buildTitleAndWidget(
+      {required String title, required Widget child, bool isRequired = true}) {
     return Stack(
       alignment: Alignment.topLeft,
       children: [
@@ -368,10 +422,11 @@ class FormScreen extends GetResponsiveView<FormController> {
                 title,
                 style: _textTheme.headline5!.medium,
               ),
-              Text(
-                ' *',
-                style: _textTheme.subtitle1!.textRedE53535,
-              ),
+              if (isRequired)
+                Text(
+                  ' *',
+                  style: _textTheme.subtitle1!.textRedE53535,
+                ),
             ],
           ),
         ).paddingOnly(left: 20),

@@ -8,10 +8,8 @@ extension ElevatedButtonFromTextExtension on Widget {
       onPressed: onPressed,
       child: this,
       style: ElevatedButton.styleFrom(
-        shadowColor: Colors.black54,
+        foregroundColor: colorTitle ?? Colors.white, shadowColor: Colors.black54, backgroundColor: bgColor ?? AppColors.colorSubOrange,
         elevation: 5,
-        primary: bgColor ?? AppColors.colorSubOrange,
-        onPrimary: colorTitle ?? Colors.white,
       ),
     );
   }
@@ -21,8 +19,7 @@ extension ElevatedButtonFromTextExtension on Widget {
       onPressed: onPressed,
       child: this,
       style: ElevatedButton.styleFrom(
-        onPrimary: color ?? AppColors.colorSubOrange,
-        side: BorderSide(width: 1.5, color: color ?? AppColors.colorSubOrange),
+        foregroundColor: color ?? AppColors.colorSubOrange, side: BorderSide(width: 1.5, color: color ?? AppColors.colorSubOrange),
       ),
     );
   }

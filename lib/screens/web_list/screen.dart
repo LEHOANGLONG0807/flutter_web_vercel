@@ -20,7 +20,7 @@ class WebManagerScreen extends GetView<WebManagerController> {
           Container(
             width: double.infinity,
             height: double.infinity,
-            padding: const EdgeInsets.only(left: 60, right: 60, top: 20, bottom: 10),
+            padding: const EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 10),
             margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
@@ -33,15 +33,17 @@ class WebManagerScreen extends GetView<WebManagerController> {
                   width: 120,
                 ),
                 15.verticalSpace,
-                Obx(() {
-                  return InkWell(
-                    onTap: controller.onTapChangeDate,
-                    child: Text(
-                      controller.date.value.formatDateTime('MM/dd/yyyy'),
-                      style: _textTheme.headline3!.textPrimary.letterSpaC(0.6),
-                    ),
-                  );
-                },),
+                Obx(
+                  () {
+                    return InkWell(
+                      onTap: controller.onTapChangeDate,
+                      child: Text(
+                        controller.date.value.formatDateTime('MM/dd/yyyy'),
+                        style: _textTheme.headline3!.textPrimary.letterSpaC(0.6),
+                      ),
+                    );
+                  },
+                ),
                 25.verticalSpace,
                 _buildHeader(),
                 const Divider(),
@@ -68,9 +70,12 @@ class WebManagerScreen extends GetView<WebManagerController> {
 
     return Row(
       children: [
-        Expanded(flex: 3, child: _item('CUSTOMER NAME')),
-        Expanded(flex: 3, child: _item('COMPANY')),
+        Expanded(flex: 2, child: _item('CUSTOMER NAME')),
+        Expanded(flex: 2, child: _item('COMPANY')),
         Expanded(flex: 2, child: _item('REASON')),
+        Expanded(flex: 2, child: _item('MEET WITH')),
+        Expanded(flex: 2, child: _item('Email address'.toUpperCase())),
+        Expanded(flex: 2, child: _item('Phone number'.toUpperCase())),
         Expanded(flex: 2, child: _item('CHECK-IN')),
         Expanded(flex: 2, child: _item('CHECK-OUT')),
         Expanded(flex: 1, child: _item('ACTION')),
@@ -126,13 +131,17 @@ class WebManagerScreen extends GetView<WebManagerController> {
 
     return Row(
       children: [
-        Expanded(flex: 3, child: _item(model.displayName)),
-        Expanded(flex: 3, child: _item(model.company)),
+        Expanded(flex: 2, child: _item(model.displayName)),
+        Expanded(flex: 2, child: _item(model.company)),
         Expanded(flex: 2, child: _item(model.purpose)),
+        Expanded(flex: 2, child: _item(model.peopleMeetWith ?? '-')),
+        Expanded(flex: 2, child: _item(model.email ?? '-')),
+        Expanded(flex: 2, child: _item(model.phone ?? '-')),
         Expanded(
             flex: 2, child: _item(model.timeIn.formatDateTime('hh:mm a MM/dd/yyyy').toUpperCase())),
         Expanded(
-            flex: 2, child: _item(model.timeOut?.formatDateTime('hh:mm a MM/dd/yyyy').toUpperCase()??'-')),
+            flex: 2,
+            child: _item(model.timeOut?.formatDateTime('hh:mm a MM/dd/yyyy').toUpperCase() ?? '-')),
         Expanded(
           flex: 1,
           child: InkWell(

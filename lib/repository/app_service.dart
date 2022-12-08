@@ -139,7 +139,6 @@ class AppService extends BaseService {
 
 abstract class BaseService {
   late Dio _dio;
-  String? _token;
   final _stg = GetStorage();
 
   void initAppService() {
@@ -150,8 +149,8 @@ abstract class BaseService {
     _dio = Dio(
       BaseOptions(
         baseUrl: 'https://visitor.hthcomm.com/api',
-        connectTimeout: 15000,
-        receiveTimeout: 15000,
+        connectTimeout: 60000,
+        receiveTimeout: 60000,
         responseType: ResponseType.json,
         headers: headers,
       ),
@@ -160,7 +159,6 @@ abstract class BaseService {
 
   void setToken(String? token) {
     _stg.write(AppConstants.keyToken, token);
-    _token = token;
     initAppService();
   }
 

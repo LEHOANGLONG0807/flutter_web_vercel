@@ -1,4 +1,3 @@
-
 import 'package:app_visitor/models/models.dart';
 import 'package:app_visitor/theme/asset_colors.dart';
 
@@ -91,6 +90,28 @@ class PreviewCheckInScreen extends GetView<PreviewCheckInController> {
   }
 
   Widget _buildItem(PreviewCheckInModel model) {
+    if (Get.width >= 1000) {
+      return Column(
+        children: [
+          20.verticalSpace,
+          Image.asset(
+            model.icon.assetImagesPathPNG,
+            height: 120,
+          ),
+          25.verticalSpace,
+          Text(
+            model.title,
+            style: _textTheme.headline3!.semiBold.textBlack.size(36),
+          ),
+          16.verticalSpace,
+          Text(
+            model.content,
+            style: _textTheme.headline5!.textGrey797979.light.size(24).heightLine(40),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ).paddingSymmetric(horizontal: 200);
+    }
     return Column(
       children: [
         80.verticalSpace,

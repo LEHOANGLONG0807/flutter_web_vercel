@@ -34,7 +34,7 @@ dependencies:
   flutter_easyloading: ^3.0.5
   intl: ^0.17.0
   get_storage: ^2.0.3
-  cached_network_image: ^3.2.0
+  cached_network_image: ^3.2.3
   dio: ^4.0.6
   fluttertoast: ^8.0.9
   flutter_form_builder: 7.1.0
@@ -46,9 +46,9 @@ dependencies:
   qr_code_scanner: ^1.0.0
   image_picker: ^0.8.5+3
   slugify: ^2.0.0
-  dotted_border: ^2.0.0+2
+  dotted_border: ^2.0.0+3
   path_provider: ^2.0.11
-  url_launcher: ^6.1.5
+  url_launcher: ^6.1.7
 
 
 dependency_overrides:
@@ -59,7 +59,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
   flutter_launcher_icons: "^0.9.2"
 
 flutter_icons:

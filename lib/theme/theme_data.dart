@@ -82,11 +82,8 @@ class AirTalkThemeData {
 
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        elevation: 1,
-        minimumSize: const Size(75, 75),
-        primary: AppColors.colorSubOrange,
-        onPrimary: Colors.white,
-        onSurface: Colors.grey,
+        foregroundColor: Colors.white, backgroundColor: AppColors.colorSubOrange, elevation: 1,
+        minimumSize: const Size(75, 75), disabledForegroundColor: Colors.grey.withOpacity(0.38), disabledBackgroundColor: Colors.grey.withOpacity(0.12),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(1000),
         ),

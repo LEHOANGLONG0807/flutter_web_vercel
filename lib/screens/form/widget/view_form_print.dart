@@ -8,12 +8,14 @@ class ViewFormPrinting {
   PdfPageFormat? pageFormat;
   Uint8List byteQrCode;
   Uint8List logoCompany;
+  Uint8List? byteAvatar;
   CustomerModel customer;
 
   ViewFormPrinting(
       {this.pageFormat,
       required this.byteQrCode,
       required this.customer,
+      this.byteAvatar,
       required this.logoCompany});
 
   pw.Page get page => pw.Page(
@@ -26,6 +28,9 @@ class ViewFormPrinting {
             child: pw.Column(
               mainAxisAlignment: pw.MainAxisAlignment.center,
               children: [
+                if (byteAvatar != null)
+                  pw.Image(pw.MemoryImage(byteAvatar!),
+                      fit: pw.BoxFit.cover, width: 40, height: 40),
                 pw.Text(
                   customer.displayName,
                   textAlign: pw.TextAlign.center,

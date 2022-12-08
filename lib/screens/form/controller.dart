@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
-import 'package:app_visitor/biz/biz.dart';
 import 'package:app_visitor/common/common.dart';
 import 'package:app_visitor/models/models.dart';
 import 'package:app_visitor/repository/repository.dart';
@@ -18,8 +16,6 @@ import 'widget/widget.dart';
 class FormController extends GetxController {
   IFirebaseRepository get _firebaseRepo => Get.find();
 
-  AppController get _appCtrl => Get.find();
-
   final isInitialsNameRequires = true.obs;
 
   final firstNameController = TextEditingController();
@@ -28,9 +24,15 @@ class FormController extends GetxController {
 
   final companyController = TextEditingController();
 
-  final purposeController = TextEditingController();
+  final  purposeSelected=Rxn<PurposeEnum>();
 
   final initialsNameController = TextEditingController();
+
+  final emailController=TextEditingController();
+
+  final phoneController=TextEditingController();
+
+  final peopleController=TextEditingController();
 
   final formKey = GlobalKey<FormBuilderState>();
 
@@ -40,8 +42,7 @@ class FormController extends GetxController {
 
   int id = -1;
 
-  String get idCreateCustomer =>
-      'HTH-${DateTime.now().formatDateTime('MMddyy')}-${_appCtrl.countCustomer}';
+  String idCreateCustomer = '';
 
   late CustomerModel _customerModel;
 
@@ -60,54 +61,63 @@ class FormController extends GetxController {
   void _initData() {
     isInitialsNameRequires.value = true;
     initialsNameController.text = _customerModel.initialsName;
-    purposeController.text = _customerModel.purpose;
+    purposeSelected.value = _customerModel.purposeEnum();
     companyController.text = _customerModel.company;
     firstNameController.text = _customerModel.firstName;
     lastNameController.text = _customerModel.lastName;
     fileImage.value = _customerModel.urlAvatar;
+    emailController.text=_customerModel.email??'';
+    peopleController.text=_customerModel.peopleMeetWith??'';
+    phoneController.text=_customerModel.phone??'';
     update();
   }
 
   void _onTapSave() async {
     try {
       EasyLoading.show();
+      idCreateCustomer = 'HTH-${DateTime.now().formatDateTime('MMddyyHHmmss')}';
       final newModel = CustomerModel(
         dateIn: DateTime.now(),
         timeIn: DateTime.now(),
         firstName: firstNameController.text.trim(),
         lastName: lastNameController.text.trim(),
-        company: companyController.text.trim(),
-        purpose: purposeController.text.trim(),
+        company: companyController.text.trim().isEmpty ? '-' : companyController.text.trim(),
+        purpose: purposeSelected.value?.title??'',
         initialsName: initialsNameController.text.trim(),
-        customerId: _genCustomerId,
+        customerId: idCreateCustomer,
+        peopleMeetWith: peopleController.text,
+        email: emailController.text,
+        phone: phoneController.text,
       );
       final data = newModel.toJson();
       data.removeWhere((key, value) => value == null);
       final res = await _firebaseRepo.createCustomer(data: data);
 
+      Uint8List? byteAvatar;
       if (res != null) {
-        _appCtrl.addCountCustomer();
-        final success = await _firebaseRepo.uploadAvatar(id: res, file: fileImage.value);
-        EasyLoading.dismiss();
-        if (success != true) {
-          FlutterToast.showToastError(message: 'Upload Check-in photo error');
+        if (fileImage.value != null && fileImage.value is File) {
+          final success = await _firebaseRepo.uploadAvatar(id: res, file: fileImage.value);
+          byteAvatar = await _firebaseRepo.removeBgApi(fileImage.value.path);
           EasyLoading.dismiss();
-          return;
+          if (success != true) {
+            FlutterToast.showToastError(message: 'Upload Check-in photo error');
+            EasyLoading.dismiss();
+            return;
+          }
+          byteAvatar ??= (fileImage.value as File).readAsBytesSync();
         }
         id = res;
         newModel.id = res;
         _customerModel = newModel;
-        _genFilePDFPrint(model: _customerModel);
+        _genFilePDFPrint(model: _customerModel, bytesAvatar: byteAvatar);
         update();
       }
     } catch (e) {
+      debugPrint(e.toString());
       EasyLoading.dismiss();
-      FlutterToast.showToastError(message: 'An error occurred!');
+      FlutterToast.showToastError(message: e.toString());
     }
   }
-
-  String get _genCustomerId =>
-      'HTH-${DateTime.now().formatDateTime('MMddyy')}-${_appCtrl.countCustomer + 1}';
 
   void onTapSecurity() {
     Get.bottomSheet(BottomSheetSecurity(), isScrollControlled: true);
@@ -115,10 +125,10 @@ class FormController extends GetxController {
 
   void onSubmit() {
     if (formKey.currentState!.validate()) {
-      if (fileImage.value is! File) {
-        FlutterToast.showToastError(message: 'Check-in photo is required');
-        return;
-      }
+      // if (fileImage.value is! File) {
+      //   FlutterToast.showToastError(message: 'Check-in photo is required');
+      //   return;
+      // }
       Get.bottomSheet(BottomSheetConfirmSubmit(
         onTapSure: _onTapSave,
       ));
@@ -126,7 +136,7 @@ class FormController extends GetxController {
     }
   }
 
-  void _genFilePDFPrint({required CustomerModel model}) async {
+  void _genFilePDFPrint({required CustomerModel model, Uint8List? bytesAvatar}) async {
     EasyLoading.show();
     final imageUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${model.id}';
     final bytes =
@@ -137,7 +147,7 @@ class FormController extends GetxController {
 
     try {
       final uInt8ListPDF = await _generatePdf(PdfPageFormat.legal,
-          byteQrCode: bytes, customer: model, logoCompany: logoCompany);
+          byteQrCode: bytes, customer: model, logoCompany: logoCompany, byteAvatar: bytesAvatar);
       _firebaseRepo.uploadFilePdf(id: model.id, file: uInt8ListPDF);
     } catch (e) {
       debugPrint(e.toString());
@@ -172,6 +182,7 @@ class FormController extends GetxController {
   Future<Uint8List> _generatePdf(PdfPageFormat format,
       {required CustomerModel customer,
       required Uint8List byteQrCode,
+      Uint8List? byteAvatar,
       required Uint8List logoCompany}) async {
     final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
     const newFormat = PdfPageFormat(125, 180, marginLeft: 10, marginRight: 36);
@@ -181,6 +192,7 @@ class FormController extends GetxController {
         pageFormat: newFormat,
         byteQrCode: byteQrCode,
         customer: customer,
+        byteAvatar: byteAvatar,
         logoCompany: logoCompany,
       ).page,
     );

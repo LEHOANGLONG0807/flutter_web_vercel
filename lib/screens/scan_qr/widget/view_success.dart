@@ -21,7 +21,7 @@ class ViewCheckoutSuccess extends StatelessWidget {
                 'img_logo_company'.assetImagesPathPNG,
                 height: 30,
               ),
-              58.verticalSpace,
+              40.verticalSpace,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -37,11 +37,11 @@ class ViewCheckoutSuccess extends StatelessWidget {
                   ),
                 ],
               ),
-              80.verticalSpace,
+              60.verticalSpace,
               Image.asset('img_checkout_success'.assetImagesPathPNG,width: Get.width/2,),
-              80.verticalSpace,
+              60.verticalSpace,
               const Text('Sure').elevatedButton(onPressed: Get.back).wrapWidth(300),
-              18.verticalSpace,
+              30.verticalSpace,
             ],
           ).wrapWidth(min(Get.width, 500)).paddingSymmetric(horizontal: 22),
         ),

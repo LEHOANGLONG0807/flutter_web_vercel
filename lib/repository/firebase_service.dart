@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:http/http.dart' as http;
 import 'package:app_visitor/common/common.dart';
 import 'package:app_visitor/models/customer_model.dart';
 import 'package:app_visitor/models/models.dart';
@@ -10,6 +11,18 @@ import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart';
 import 'app_service.dart';
 
+// class FirebaseService {
+//   FirebaseService() {
+//     final _firebaseFirestore = FirebaseFirestore.instance;
+//
+//     storage = FirebaseStorage.instance;
+//
+//     customerCollection = _firebaseFirestore.collection('customers');
+//   }
+//   late CollectionReference customerCollection;
+//
+//   late FirebaseStorage storage;
+// }
 
 abstract class IFirebaseRepository {
   Future<int?> createCustomer({required Map<String, dynamic> data});
@@ -21,6 +34,8 @@ abstract class IFirebaseRepository {
   Future<bool> uploadFilePdf({required int id, required Uint8List file});
 
   Future<List<CustomerModel>> fetchListCustomer({required DateTime date});
+
+  Future<Uint8List?> removeBgApi(String imagePath);
 }
 
 class FirebaseRepository implements IFirebaseRepository {
@@ -101,5 +116,24 @@ class FirebaseRepository implements IFirebaseRepository {
       debugPrint(e.toString());
     }
     return false;
+  }
+
+  @override
+  Future<Uint8List?> removeBgApi(String imagePath) async {
+    try {
+      var request = http.MultipartRequest("POST", Uri.parse("https://api.remove.bg/v1.0/removebg"));
+      request.files.add(await http.MultipartFile.fromPath("image_file", imagePath));
+      request.headers.addAll({"X-API-Key": "EQrufAmvrYB6Wwo1gG5uVdcJ"}); //Put Your API key HERE
+      final response = await request.send();
+      if (response.statusCode == 200) {
+        http.Response imgRes = await http.Response.fromStream(response);
+        return imgRes.bodyBytes;
+      } else {
+        throw Exception("Error occurred with response ${response.statusCode}");
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
   }
 }

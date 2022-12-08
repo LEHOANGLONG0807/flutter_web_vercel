@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:get/get.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 import 'biz/biz.dart';
 import 'repository/repository.dart';
@@ -50,17 +48,12 @@ class MyApp extends StatelessWidget {
       ..maskColor = AppColors.primary.withOpacity(0.5)
       ..userInteractions = true
       ..dismissOnTap = false;
-    initializeDateFormatting();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: AppPages.pages,
       theme: AirTalkThemeData.themeData,
       darkTheme: AirTalkThemeData.themeData,
       builder: EasyLoading.init(),
-      localizationsDelegates: const [
-        FormBuilderLocalizations.delegate,
-      ],
-      supportedLocales: FormBuilderLocalizations.delegate.supportedLocales,
       initialBinding: initialBinding,
       defaultTransition: Transition.native,
       initialRoute: Routes.splash,
